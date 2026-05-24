@@ -73,8 +73,8 @@ export default function Dashboard() {
       <div className="dashboard-grid">
         <div className="card">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-            <CalendarCheck size={18} style={{ color: 'var(--gold)' }} />
-            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: 18 }}>Recent Bookings</h3>
+            <CalendarCheck size={18} style={{ color: 'var(--navy)' }} />
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', fontSize: 18 }}>Recent Bookings</h3>
           </div>
           {loading ? (
             <div className="page-loader"><span className="spinner" /></div>
@@ -110,8 +110,8 @@ export default function Dashboard() {
 
         <div className="card dashboard-mini">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-            <TrendingUp size={18} style={{ color: 'var(--gold)' }} />
-            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: 18 }}>Booking Status</h3>
+            <TrendingUp size={18} style={{ color: 'var(--navy)' }} />
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', fontSize: 18 }}>Booking Status</h3>
           </div>
           <div className="status-list">
             {[

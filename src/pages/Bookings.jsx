@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { bookingsAPI, usersAPI, bookingSessionsAPI, foodPackagesAPI } from '../services/api';
 import Modal from '../components/Modal';
+import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { Search, CalendarCheck, Eye, ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
 
 const STATUS_OPTIONS = ['pending', 'confirmed', 'cancelled', 'completed', 'not_paid'];
 
 export default function Bookings() {
+    const { isAdmin } = useAuth();
     const [bookings, setBookings] = useState([]);
     const [users, setUsers] = useState([]);
     const [sessions, setSessions] = useState([]);
@@ -79,8 +81,23 @@ export default function Bookings() {
             <div className="page-header">
                 <div>
                     <h1 className="page-title">Bookings</h1>
-                    <p className="page-subtitle">{bookings.length} total reservations</p>
+                    <p className="page-subtitle">{bookings.length} total reservations{isAdmin && ' · View only'}</p>
                 </div>
+                {isAdmin && (
+                    <span style={{
+                        background: '#f59e0b22',
+                        color: '#f59e0b',
+                        border: '1px solid #f59e0b',
+                        borderRadius: 6,
+                        padding: '4px 12px',
+                        fontSize: 12,
+                        fontWeight: 600,
+                        letterSpacing: '0.04em',
+                        alignSelf: 'center',
+                    }}>
+                        👁 Read Only
+                    </span>
+                )}
             </div>
 
             <div className="card">
@@ -138,7 +155,7 @@ export default function Bookings() {
                                             <button className="btn btn-ghost btn-sm" onClick={() => setViewTarget(b)} title="View Detail">
                                                 <Eye size={14} />
                                             </button>
-                                            {b.booking_status === 'pending' && (
+                                            {!isAdmin && b.booking_status === 'pending' && (
                                                 <button
                                                     className="btn btn-primary btn-sm"
                                                     onClick={() => handleStatusChange(b, 'confirmed')}
@@ -148,7 +165,7 @@ export default function Bookings() {
                                                     {changingStatus === b.id ? <span className="spinner" style={{ width: 12, height: 12 }} /> : 'Confirm'}
                                                 </button>
                                             )}
-                                            {b.booking_status === 'confirmed' && (
+                                            {!isAdmin && b.booking_status === 'confirmed' && (
                                                 <>
                                                     <button
                                                         className="btn btn-primary btn-sm"
